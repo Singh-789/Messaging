@@ -12,7 +12,7 @@ io.on('connection', (socket) => {
     console.log("New user connected");
     socket.on('createMessage', (message) => {
         console.log("Message created", message);
-        socket.emit('newMessage', message)
+        io.emit('newMessage', message)
     });
     socket.on('disconnect', function () {
         console.log("Disconnected from user")
