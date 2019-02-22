@@ -11,11 +11,12 @@ const {generateMessage} = require('./utils/message')
 app.use(express.static(publicPath))
 io.on('connection', (socket) => {
     console.log("New user connected");
-    socket.on('createMessage', (message) => {
+    socket.on('createMessage', (message,callback) => {
         console.log("Message created", message);
         // io.emit('newMessage', message)
         socket.emit('newMessage',generateMessage("Admin","Welcome to the chat Application"));
         socket.broadcast.emit('newMessage',generateMessage("Admin","New user joined"));
+        callback("Done message sent")
 
     });
     socket.on('disconnect', function () {

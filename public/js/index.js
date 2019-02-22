@@ -12,4 +12,6 @@ socket.emit('createMessage', {
     email: "Helloworld@gmail.com",
     name: "My name is vijender",
     message: "Heelllooo world"
+},(ack)=>{
+console.log("Getting acknowledge ",ack)
 });
