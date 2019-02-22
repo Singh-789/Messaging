@@ -7,20 +7,15 @@ const publicPath = path.join(__dirname, '../public');
 const app = express();
 const server = http.createServer(app)
 const io = socketIO(server)
+const {generateMessage} = require('./utils/message')
 app.use(express.static(publicPath))
 io.on('connection', (socket) => {
     console.log("New user connected");
     socket.on('createMessage', (message) => {
         console.log("Message created", message);
         // io.emit('newMessage', message)
-        socket.emit('newMessage',{
-            from:"Admin",
-            text:"Welcome to the chat application"
-        });
-        socket.broadcast.emit('newMessage',{
-            from:"Admin",
-            text:"New user joined"
-        });
+        socket.emit('newMessage',generateMessage("Admin","Welcome to the chat Application"));
+        socket.broadcast.emit('newMessage',generateMessage("Admin","New user joined"));
 
     });
     socket.on('disconnect', function () {
