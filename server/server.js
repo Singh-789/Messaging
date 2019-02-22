@@ -12,7 +12,16 @@ io.on('connection', (socket) => {
     console.log("New user connected");
     socket.on('createMessage', (message) => {
         console.log("Message created", message);
-        io.emit('newMessage', message)
+        // io.emit('newMessage', message)
+        socket.emit('newMessage',{
+            from:"Admin",
+            text:"Welcome to the chat application"
+        });
+        socket.broadcast.emit('newMessage',{
+            from:"Admin",
+            text:"New user joined"
+        });
+
     });
     socket.on('disconnect', function () {
         console.log("Disconnected from user")
